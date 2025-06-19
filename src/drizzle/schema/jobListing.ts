@@ -9,6 +9,8 @@ import {
     experienceEnum, typeEnum
 } from "@/drizzle/schemaHelper";
 import {OrganizationTable} from "@/drizzle/schema/organization";
+import {relations} from "drizzle-orm";
+import {JobListingApplicationTable} from "@/drizzle/schema/jobListingApplication";
 
 
 /**
@@ -60,3 +62,24 @@ export const JobListingTable = pgTable("job_listings", {
     },
     table => [index().on(table.stateAbbreviation)]
 )
+
+//relations
+/**
+ * Represents the relationships and references for the JobListingTable.
+ *
+ * This variable defines how the JobListingTable is related to other tables,
+ * facilitating structured access to related data within the database schema.
+ *
+ * Relationships:
+ * - `organization`: Establishes a one-to-one relationship with the OrganizationTable.
+ *   Specifies the mapping fields and references between JobListingTable and OrganizationTable.
+ * - `applications`: Defines a one-to-many relationship with the JobListingApplicationTable,
+ *   representing all applications associated with a specific job listing.
+ */
+export const JobListingReferences = relations(JobListingTable, ({one, many}) => ({
+    organization: one(OrganizationTable, {
+        fields: [JobListingTable.organizationId],
+        references: [OrganizationTable.id]
+    }),
+    applications: many(JobListingApplicationTable)
+}))

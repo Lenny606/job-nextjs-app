@@ -9,6 +9,7 @@ import {
     id
 } from "@/drizzle/schemaHelper";
 import {UserTable} from "@/drizzle/schema/user";
+import {relations} from "drizzle-orm";
 
 export const UserResumeTable = pgTable("user_resumes", {
         id,
@@ -22,3 +23,11 @@ export const UserResumeTable = pgTable("user_resumes", {
         updatedAt
     }
 )
+
+export const userNotificationSettingsRelations = relations(UserResumeTable, ({one}) => ({
+
+    user: one(UserTable, {
+        fields: [UserResumeTable.userId],
+        references: [UserTable.id]
+    }),
+}))
