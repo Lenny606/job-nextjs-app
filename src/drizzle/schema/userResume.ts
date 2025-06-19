@@ -24,7 +24,7 @@ export const UserResumeTable = pgTable("user_resumes", {
     }
 )
 
-export const userNotificationSettingsRelations = relations(UserResumeTable, ({one}) => ({
+export const userResumeRelations = relations(UserResumeTable, ({one}) => ({
 
     user: one(UserTable, {
         fields: [UserResumeTable.userId],
