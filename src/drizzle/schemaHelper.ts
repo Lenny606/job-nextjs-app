@@ -11,17 +11,20 @@ export const updatedAt = timestamp({
 export const id = uuid().primaryKey().defaultRandom()
 
 
-// ------------- ENUMS----------
+// ------------ VALUES ---------------
 export const wageIntervals = ["hourly", "daily", "weekly", "monthly", "yearly"] as const;
 export const locationRequirements = ["office", "remote", "hybrid"] as const;
 export const statuses = ["draft", "published", "delisted"] as const;
 export const experiences = ["junior", "medior", "senior"] as const;
 export const types = ["full-time", "part-time", "internship"] as const;
+export const applicationStages = ["denied", "applied", "interested", "interveiwed", "hired"] as const;
+// ------------- ENUMS----------
 export const wageIntervalEnum = pgEnum('wage_intervals', wageIntervals)
 export const locationRequirementEnum = pgEnum('location_requirements', locationRequirements)
 export const statusEnum = pgEnum('statuses', statuses)
 export const experienceEnum = pgEnum('experiences', experiences)
 export const typeEnum = pgEnum('types', types)
+export const applicationStageEnum = pgEnum('application_stages', applicationStages)
 
 // ------------- TYPES----------
 export type WageInterval = (typeof wageIntervals)[number];
@@ -29,3 +32,4 @@ export type LocationRequirement = (typeof locationRequirements)[number];
 export type Status = (typeof statuses)[number];
 export type Experience = (typeof experiences)[number];
 export type Type = (typeof types)[number];
+export type ApplicationStage = (typeof applicationStages)[number];
