@@ -10,7 +10,7 @@ import {
 } from "@/drizzle/schemaHelper";
 import {UserTable} from "@/drizzle/schema/user";
 
-export const UserNotificationSettings = pgTable("user_notification_settings", {
+export const UserNotificationSettingsTable = pgTable("user_notification_settings", {
         id,
         userId: uuid().references(() => UserTable.id, {
             onDelete: "cascade"
