@@ -1,7 +1,6 @@
-import {pgEnum, pgTable, integer, varchar, boolean} from "drizzle-orm/pg-core";
-import {createdAt, updatedAt, id} from "@/drizzle/schemaHelper";
+import {text, pgTable, integer, varchar, boolean, uuid} from "drizzle-orm/pg-core";
+import {createdAt, updatedAt, id, wageIntervalEnum} from "@/drizzle/schemaHelper";
 import {OrganizationTable} from "@/drizzle/schema/organization";
-
 
 
 export const JobListingTable = pgTable("job_listings", {
@@ -9,7 +8,7 @@ export const JobListingTable = pgTable("job_listings", {
     title: varchar().notNull(),
     description: text().notNull(),
     organizationId: uuid().references(() => OrganizationTable.id, {
-        onDelete: "CASCADE"
+        onDelete: "cascade"
     }).notNull(),
     wage: integer(),
     wageInterval: wageIntervalEnum(),

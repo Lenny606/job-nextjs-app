@@ -1,4 +1,4 @@
-import {pgEnum, timestamp} from "drizzle-orm/pg-core";
+import {pgEnum, timestamp, uuid} from "drizzle-orm/pg-core";
 
 export const createdAt = timestamp({
     withTimezone: true,
