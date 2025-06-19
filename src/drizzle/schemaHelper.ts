@@ -1,4 +1,4 @@
-import {timestamp} from "drizzle-orm/pg-core";
+import {pgEnum, timestamp} from "drizzle-orm/pg-core";
 
 export const createdAt = timestamp({
     withTimezone: true,
@@ -7,3 +7,13 @@ export const createdAt = timestamp({
 export const updatedAt = timestamp({
     withTimezone: true,
 }).notNull().defaultNow().$onUpdate(() => new Date())
+
+export const id = uuid().primaryKey().defaultRandom()
+
+
+// ------------- ENUMS----------
+export const wageIntervals = ["hourly", "daily", "weekly", "monthly", "yearly"] as const;
+export const wageIntervalEnum = pgEnum('wage_intervals', wageIntervals)
+
+// ------------- TYPES----------
+export type WageInterval = (typeof wageIntervals)[number];
