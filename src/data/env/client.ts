@@ -17,35 +17,20 @@ import {z} from "zod";
  * @property {Function} createFinalSchema - Function to create and transform the final schema using the provided environment variables.
  */
 export const env = createEnv({
-    server: {
-        DB_PASSWORD: z.string().min(1),
-        DB_USER: z.string().min(1),
-        DB_PORT: z.string().min(1),
-        DB_HOST: z.string().min(1),
-        DB_NAME: z.string().min(1),
-        CLERK_SECRET_KEY: z.string().min(1),
+    client: {
+        NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string().min(1),
+        NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL: z.string().min(1),
+        NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL: z.string().min(1),
+        NEXT_PUBLIC_APP_NAME: z.string().min(1),
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
     },
-    experimental__runtimeEnv: process.env,
-    emptyStringAsUndefined: true,
-    createFinalSchema: env => {
-        return z.object(env).transform(
-            val => {
-                const {
-                    DB_PASSWORD,
-                    DB_USER,
-                    DB_PORT,
-                    DB_HOST,
-                    DB_NAME,
-                    CLERK_SECRET_KEY,
-                    ...rest
-                } = val
+    experimental__runtimeEnv: {
+        NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
+        NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL,
+        NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL,
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_APP_NAME,
+        NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME
 
-                return  {
-                    ...rest,
-                    DATABASE_URL: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-                    CLERK_SECRET_KEY: `${CLERK_SECRET_KEY}`
-                }
-            }
-        )
-    }
+    },
+    emptyStringAsUndefined: true,
 })
