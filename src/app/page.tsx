@@ -9,8 +9,7 @@ import {
 import {AppSidebarClient} from "@/app/_AppSidebarClient";
 import Link from "next/link";
 import {LogInIcon} from "lucide-react";
-import {Suspense} from "react";
-import {SignedOut} from "@clerk/nextjs";
+import {SignedOut} from "@/services/clerk/SignStatus";
 
 
 export default function Home() {
@@ -26,18 +25,16 @@ export default function Home() {
                     <SidebarContent>
                         <SidebarGroup>
                             <SidebarMenu>
-                                <Suspense>
-                                    <SignedOut>
-                                        <SidebarMenuItem>
-                                            <SidebarMenuButton asChild>
-                                                <Link href={'/sign-in'}>
-                                                    <LogInIcon></LogInIcon>
-                                                    <span>Sign In</span>
-                                                </Link>
-                                            </SidebarMenuButton>
-                                        </SidebarMenuItem>
-                                    </SignedOut>
-                                </Suspense>
+                                <SignedOut>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton asChild>
+                                            <Link href={'/sign-in'}>
+                                                <LogInIcon></LogInIcon>
+                                                <span>Sign In</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                </SignedOut>
                             </SidebarMenu>
                         </SidebarGroup>
                     </SidebarContent>
