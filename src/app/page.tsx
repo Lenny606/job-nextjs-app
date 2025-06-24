@@ -1,12 +1,16 @@
 import {
     Sidebar,
     SidebarContent,
-    SidebarFooter,
+    SidebarFooter, SidebarGroup,
     SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem,
     SidebarProvider,
     SidebarTrigger
 } from "@/components/ui/sidebar";
 import {AppSidebarClient} from "@/app/_AppSidebarClient";
+import Link from "next/link";
+import {LogInIcon} from "lucide-react";
+import {Suspense} from "react";
+import {SignedOut} from "@clerk/nextjs";
 
 
 export default function Home() {
@@ -20,7 +24,22 @@ export default function Home() {
                         <span className={'text-xl text-wrap'}>{process.env.NEXT_PUBLIC_APP_NAME}</span>
                     </SidebarHeader>
                     <SidebarContent>
-
+                        <SidebarGroup>
+                            <SidebarMenu>
+                                <Suspense>
+                                    <SignedOut>
+                                        <SidebarMenuItem>
+                                            <SidebarMenuButton asChild>
+                                                <Link href={'/sign-in'}>
+                                                    <LogInIcon></LogInIcon>
+                                                    <span>Sign In</span>
+                                                </Link>
+                                            </SidebarMenuButton>
+                                        </SidebarMenuItem>
+                                    </SignedOut>
+                                </Suspense>
+                            </SidebarMenu>
+                        </SidebarGroup>
                     </SidebarContent>
                     <SidebarFooter>
                         <SidebarMenu>
